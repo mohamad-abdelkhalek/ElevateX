@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "module": "ESNext",
+      "moduleResolution": "Bundler",
+      "target": "ES2022",
+      "jsx": "react",
+      "allowImportingTsExtensions": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "baseUrl": "src",  // Add this to set the base directory for imports
+      "paths": {         // Add this to define path aliases
+        "components/*": ["components/*"],
+        "utils/*": ["utils/*"],
+        "hooks/*": ["hooks/*"]
+      }
+    },
+    "exclude": [
+      "node_modules",
+      "**/node_modules/*"
+    ]
+  }
+  
