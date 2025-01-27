@@ -23,8 +23,8 @@ const Navbar = () => {
         className="hidden md:flex items-center gap-5
         text-gray-500"
       >
-        <div>
-          <button>Become Educator</button>|{" "}
+        <div className="flex items-center gap-5">
+          <button>Become Educator</button>|
           <Link to="/my-enrollments">My Enrollments</Link>
         </div>
         <button
@@ -36,7 +36,15 @@ const Navbar = () => {
       </div>
 
       {/* Mobile view */}
-      <div></div>
+      <div className="md:hidden flex items-center gap-2 sm:gap-5 text-gray-500">
+        <div>
+          <button>Become Educator</button>|
+          <Link to="/my-enrollments">My Enrollments</Link>
+        </div>
+        <button>
+          <img src={assets.user_icon} alt="User icon" />
+        </button>
+      </div>
     </div>
   );
 };
