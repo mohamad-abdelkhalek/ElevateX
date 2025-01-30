@@ -1,5 +1,6 @@
 import React from "react";
 import Hero from "../../components/student/Hero";
+import Companies from "../../components/student/Companies";
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
     text-center"
     >
       <Hero />
+      <Companies />
     </div>
   );
 };
