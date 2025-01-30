@@ -1,7 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit&wght@0,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 @import "tailwindcss";
 
+/* Apply the custom font globally */
 * {
-    font-family: Outfit;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Define CSS variables */
+:root {
+    --home-heading-small: 48px;
+    --home-heading-small-line: 39px;
+
+    --home-heading-large: 48px;
+    --home-heading-large-line: 56px;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    :root {
+        --home-heading-small: 30px;
+        --home-heading-small-line: 29px;
+
+        --home-heading-large: 36px;
+        --home-heading-large-line: 44px;
+    }
+}
+
+/* Custom Tailwind-like classes */
+.text-home-heading-small {
+    font-size: var(--home-heading-small);
+    line-height: var(--home-heading-small-line);
+}
+
+.text-home-heading-large {
+    font-size: var(--home-heading-large);
+    line-height: var(--home-heading-large-line);
 }
