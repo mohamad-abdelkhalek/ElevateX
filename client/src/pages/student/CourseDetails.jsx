@@ -19,10 +19,28 @@ const CourseDetails = () => {
   }, []);
 
   return (
+  <div
+    className="flex md:flex-row flex-col-reverse gap-10 relative items-start 
+    justify-between md:px-36 px-8 md:pt-[30px] pt-20 text-left"
+  >
+    {/* Background gradient */}
+    <div
+      className="absolute top-0 left-0 w-full h-[500px] z-[-1] 
+      bg-gradient-to-b from-cyan-100/70"
+    ></div>
+
+    {/* Left Column */}
     <div>
-      <h1>Course Details Page</h1>
+      {/* Content goes here */}
     </div>
-  );
+
+    {/* Right Column */}
+    <div>
+      {/* Content goes here */}
+    </div>
+  </div>
+);
+
 };
 
 export default CourseDetails;
