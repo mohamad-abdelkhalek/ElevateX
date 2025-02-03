@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import Loading from "../../components/student/Loading";
+import { assets } from "../../assets/assets";
 
 const CourseDetails = () => {
   const { id } = useParams();
-  const { allCourses } = useContext(AppContext);
+  const { allCourses, calculateRating } = useContext(AppContext);
 
   const courseData = useMemo(
     () => allCourses.find((course) => course._id === id),
@@ -37,10 +38,34 @@ const CourseDetails = () => {
           </h1>
 
           <p
+            className="pt-4 md:text-base text-sm"
             dangerouslySetInnerHTML={{
               __html: truncateText(courseData.courseDescription, 200),
             }}
           ></p>
+
+          {/* review and ratings */}
+          <div className="flex items-center space-x-2">
+            <p>{calculateRating(courseData)}</p>
+            <div className="flex">
+              {[...Array(5)].map((_, i) => (
+                <img
+                  className="w-3.5 h-3.5"
+                  key={i}
+                  src={
+                    i < Math.floor(calculateRating(courseData))
+                      ? assets.star
+                      : assets.star_blank
+                  }
+                  alt="Star icon"
+                />
+              ))}
+            </div>
+            <p className="text-gray-500">
+              {courseData.courseRatings.length}{" "}
+              {courseData.courseRatings.length > 1 ? "ratings" : "rating"}
+            </p>
+          </div>
         </div>
 
         {/* Right Column */}
