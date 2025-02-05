@@ -110,23 +110,34 @@ const CourseDetails = () => {
                     </p>
                   </div>
 
-                  <div>
-                    <ul>
+                  <div className="overflow-hidden transition-all duration-300 max-h-96">
+                    <ul
+                      className="list-disc md:pl-10 pl-4 pr-4 py-2 text-gray-600
+                    border-t border-gray-300"
+                    >
                       {chapter.chapterContent.map((lecture, i) => (
-                        <li key={i}>
+                        <li key={i} className="flex items-start gap-2 py-1">
                           <img
                             src={assets.play_icon}
                             alt="Play icon"
                             className="w-4 h-4 mt-1"
                           />
-                          <div>
+                          <div className="flex items-center justify-between w-full text-gray-800 text-xs md:text-sm">
                             <p>{lecture.lectureTitle}</p>
-                            <div>
-                              {lecture.isPreviewFree && <p>Preview</p>}
-                              <p>
+                            <div className="flex gap-2">
+                              {lecture.isPreviewFree && (
+                                <p className="text-blue-500 cursor-pointer">
+                                  Preview
+                                </p>
+                              )}
+                              <p className="text-gray-600">
                                 {humanizeDuration(
                                   lecture.lectureDuration * 60 * 1000,
-                                  { units: ["h", "m"] }
+                                  {
+                                    units: ["h", "m"],
+                                    round: true,
+                                    largest: 2,
+                                  }
                                 )}
                               </p>
                             </div>
