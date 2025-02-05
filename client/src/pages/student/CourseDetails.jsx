@@ -88,13 +88,22 @@ const CourseDetails = () => {
 
             <div className="pt-5">
               {courseData.courseContent.map((chapter, index) => (
-                <div key={index}>
-                  <div>
-                    <div>
+                <div
+                  key={index}
+                  className="border border-gray-300 bg-white mb-2
+                rounded"
+                >
+                  <div
+                    className="flex items-center justify-between px-4 py-3
+                  cursor-pointer select-none"
+                  >
+                    <div className="flex items-center gap-2">
                       <img src={assets.down_arrow_icon} alt="arrow icon" />
-                      <p>{chapter.chapterTitle}</p>
+                      <p className="font-medium md:text-base text-sm">
+                        {chapter.chapterTitle}
+                      </p>
                     </div>
-                    <p>
+                    <p className="text-sm md:text-default">
                       {chapter.chapterContent.length} lectures -{" "}
                       {calculateChapterTime(chapter)}
                     </p>
