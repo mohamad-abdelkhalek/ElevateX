@@ -16,6 +16,7 @@ const CourseDetails = () => {
     calculateChapterTime,
     calculateCourseDuration,
     calculateNoOfLectures,
+    currency,
   } = useContext(AppContext);
 
   const courseData = useMemo(
@@ -181,8 +182,8 @@ const CourseDetails = () => {
 
         {/* Right Column */}
         <div
-          className="max-w-[424px] z-10 shadow-lg rounded-t 
-    md:rounded-none overflow-hidden bg-white min-w-[300px] sm:min-w-[420px]"
+          className="w-full max-w-[424px] z-10 shadow-lg rounded-t 
+  md:rounded-none overflow-hidden bg-white mb-6"
         >
           {/* Course Thumbnail */}
           <img
@@ -192,14 +193,37 @@ const CourseDetails = () => {
           />
 
           {/* Time Left Section */}
-          <div className="pt-5 px-4 flex items-center space-x-2">
+          <div className="py-3 px-3 md:px-4 flex items-center gap-2">
             <img
               className="w-3.5"
               src={assets.time_left_clock_icon}
               alt="Clock icon indicating time left"
             />
-            <p className="text-red-500">
+            <p className="text-red-500 text-sm md:text-base">
               <span className="font-medium">5 days</span> left at this price!
+            </p>
+          </div>
+
+          {/* Pricing Section (Responsive Text & Spacing) */}
+          <div className="flex flex-wrap items-baseline gap-1 sm:gap-2 px-3 md:px-4 pb-4">
+            {/* Discounted Price */}
+            <p className="text-gray-800 text-2xl sm:text-3xl md:text-4xl font-semibold">
+              {currency}
+              {(
+                courseData.coursePrice -
+                (courseData.discount * courseData.coursePrice) / 100
+              ).toFixed(2)}
+            </p>
+
+            {/* Original Price (Strikethrough) */}
+            <p className="text-sm sm:text-lg text-gray-500 line-through">
+              {currency}
+              {courseData.coursePrice}
+            </p>
+
+            {/* Discount Percentage */}
+            <p className="text-sm sm:text-lg text-gray-500">
+              {courseData.discount}% off
             </p>
           </div>
         </div>
