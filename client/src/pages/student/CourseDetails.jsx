@@ -9,6 +9,7 @@ const CourseDetails = () => {
   const { id } = useParams();
 
   const [openSections, setOpenSections] = useState({});
+  const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false);
 
   const {
     allCourses,
@@ -245,9 +246,29 @@ const CourseDetails = () => {
             <div className="h-4 w-px bg-gray-500/40"></div>
 
             <div className="flex items-center gap-1">
-              <img src={assets.time_clock_icon} alt="Clock icon" />
+              <img src={assets.lesson_icon} alt="Clock icon" />
               <p>{calculateNoOfLectures(courseData)} lessons</p>
             </div>
+          </div>
+
+          <button
+            className="md:mt-6 mt-4 w-full py-3 rounded bg-blue-600
+          text-white font-medium"
+          >
+            {isAlreadyEnrolled ? "Already Enrolled" : "Enroll Now"}
+          </button>
+
+          <div className="pt-6">
+            <p className="md:text-xl text-lg font-medium text-gray-800">
+              What's in the course?
+            </p>
+            <ul className="ml-4 pt-2 text-sm md:text-default list-disc text-gray-500">
+              <li>Lifetime access with free updates.</li>
+              <li>Step-by-step, hands-on projects gaidance.</li>
+              <li>Downloadable resources and source code.</li>
+              <li>Quizzes to test your knowledge.</li>
+              <li>Certificate of completion.</li>
+            </ul>
           </div>
         </div>
       </div>
