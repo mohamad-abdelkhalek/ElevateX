@@ -8,6 +8,8 @@ import humanizeDuration from "humanize-duration";
 const CourseDetails = () => {
   const { id } = useParams();
 
+  const [openSections, setOpenSections] = useState({});
+
   const {
     allCourses,
     calculateRating,
@@ -25,6 +27,10 @@ const CourseDetails = () => {
     if (!text) return "";
     if (text.length <= limit) return text;
     return text.substring(0, text.lastIndexOf(" ", limit)) + "…";
+  };
+
+  const toggleSection = (index) => {
+    setOpenSections((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
   return courseData ? (
@@ -97,9 +103,15 @@ const CourseDetails = () => {
                   <div
                     className="flex items-center justify-between px-4 py-3
                   cursor-pointer select-none"
+                    onClick={() => toggleSection(index)}
                   >
                     <div className="flex items-center gap-2">
-                      <img src={assets.down_arrow_icon} alt="arrow icon" />
+                      <img
+                        className={`transform transition-transform 
+                          ${openSections[index] ? "rotate-180" : ""}`}
+                        src={assets.down_arrow_icon}
+                        alt="arrow icon"
+                      />
                       <p className="font-medium md:text-base text-sm">
                         {chapter.chapterTitle}
                       </p>
@@ -110,7 +122,10 @@ const CourseDetails = () => {
                     </p>
                   </div>
 
-                  <div className="overflow-hidden transition-all duration-300 max-h-96">
+                  <div
+                    className={`overflow-hidden transition-all duration-300 
+                      ${openSections[index] ? "max-h-96" : "max-h-0"}`}
+                  >
                     <ul
                       className="list-disc md:pl-10 pl-4 pr-4 py-2 text-gray-600
                     border-t border-gray-300"
