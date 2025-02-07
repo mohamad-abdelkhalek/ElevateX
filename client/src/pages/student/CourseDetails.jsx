@@ -180,19 +180,27 @@ const CourseDetails = () => {
         </div>
 
         {/* Right Column */}
-        <div>
-          <img src={courseData.courseThumbnail} alt="Course Thumbnail" />
-          <div className="pt-5">
-            <div>
-              <img
-                className="w-3.5"
-                src={assets.time_left_clock_icon}
-                alt="Time left clock icon"
-              />
-              <p className="text-red-500">
-                <span className="font-medium">5 days</span> left at this price!
-              </p>
-            </div>
+        <div
+          className="max-w-[424px] z-10 shadow-lg rounded-t 
+    md:rounded-none overflow-hidden bg-white min-w-[300px] sm:min-w-[420px]"
+        >
+          {/* Course Thumbnail */}
+          <img
+            src={courseData.courseThumbnail}
+            alt="Thumbnail of the course"
+            className="w-full"
+          />
+
+          {/* Time Left Section */}
+          <div className="pt-5 px-4 flex items-center space-x-2">
+            <img
+              className="w-3.5"
+              src={assets.time_left_clock_icon}
+              alt="Clock icon indicating time left"
+            />
+            <p className="text-red-500">
+              <span className="font-medium">5 days</span> left at this price!
+            </p>
           </div>
         </div>
       </div>
