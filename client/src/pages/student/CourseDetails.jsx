@@ -182,89 +182,85 @@ const CourseDetails = () => {
         </div>
 
         {/* Right Column */}
-        <div
-          className="w-full max-w-[424px] z-10 shadow-lg rounded-t 
-  md:rounded-none overflow-hidden bg-white mb-6"
-        >
+        <div className="w-full max-w-[424px] z-10 bg-white rounded-lg shadow-lg overflow-hidden mb-6">
           {/* Course Thumbnail */}
           <img
             src={courseData.courseThumbnail}
             alt="Thumbnail of the course"
-            className="w-full"
+            className="w-full h-auto object-cover"
           />
 
           {/* Time Left Section */}
-          <div className="py-3 px-3 md:px-4 flex items-center gap-2">
+          <div className="p-4 flex items-center gap-2 border-b border-gray-100">
             <img
-              className="w-3.5"
+              className="w-4 h-4"
               src={assets.time_left_clock_icon}
               alt="Clock icon indicating time left"
             />
-            <p className="text-red-500 text-sm md:text-base">
-              <span className="font-medium">5 days</span> left at this price!
+            <p className="text-red-500 text-sm font-medium sm:text-base">
+              <span className="font-semibold">5 days</span> left at this price!
             </p>
           </div>
 
-          {/* Pricing Section (Responsive Text & Spacing) */}
-          <div className="flex flex-wrap items-baseline gap-1 sm:gap-2 px-3 md:px-4 pb-4">
-            {/* Discounted Price */}
-            <p className="text-gray-800 text-2xl sm:text-3xl md:text-4xl font-semibold">
+          {/* Pricing Section */}
+          <div className="p-4 flex flex-wrap items-baseline gap-2 border-b border-gray-100">
+            <p className="text-gray-800 text-2xl font-semibold sm:text-3xl md:text-4xl">
               {currency}
               {(
                 courseData.coursePrice -
                 (courseData.discount * courseData.coursePrice) / 100
               ).toFixed(2)}
             </p>
-
-            {/* Original Price (Strikethrough) */}
-            <p className="text-sm sm:text-lg text-gray-500 line-through">
+            <p className="text-gray-500 text-sm line-through sm:text-base">
               {currency}
               {courseData.coursePrice}
             </p>
-
-            {/* Discount Percentage */}
-            <p className="text-sm sm:text-lg text-gray-500">
+            <p className="text-gray-500 text-sm sm:text-base">
               {courseData.discount}% off
             </p>
           </div>
 
-          <div
-            className="flex items-center text-sm md:text-default gap-4 pt-2
-          md:pt-4 text-gray-500 px-4 mb-4"
-          >
+          {/* Course Stats */}
+          <div className="p-4 flex items-center justify-between text-sm text-gray-500 border-b border-gray-100 sm:text-base">
             <div className="flex items-center gap-1">
-              <img src={assets.star} alt="Star icon" />
-              <p>{calculateRating(courseData)}</p>
+              <img src={assets.star} alt="Star icon" className="w-4 h-4" />
+              <span>{calculateRating(courseData)}</span>
             </div>
-            <div className="h-4 w-px bg-gray-500/40"></div>
-
+            <div className="h-4 w-px bg-gray-200"></div>
             <div className="flex items-center gap-1">
-              <img src={assets.time_clock_icon} alt="Clock icon" />
-              <p>{calculateCourseDuration(courseData)}</p>
+              <img
+                src={assets.time_clock_icon}
+                alt="Clock icon"
+                className="w-4 h-4"
+              />
+              <span>{calculateCourseDuration(courseData)}</span>
             </div>
-
-            <div className="h-4 w-px bg-gray-500/40"></div>
-
+            <div className="h-4 w-px bg-gray-200"></div>
             <div className="flex items-center gap-1">
-              <img src={assets.lesson_icon} alt="Clock icon" />
-              <p>{calculateNoOfLectures(courseData)} lessons</p>
+              <img
+                src={assets.lesson_icon}
+                alt="Lesson icon"
+                className="w-4 h-4"
+              />
+              <span>{calculateNoOfLectures(courseData)} lessons</span>
             </div>
           </div>
 
-          <button
-            className="md:mt-6 mt-4 w-full py-3 rounded bg-blue-600
-          text-white font-medium"
-          >
-            {isAlreadyEnrolled ? "Already Enrolled" : "Enroll Now"}
-          </button>
+          {/* Enroll Button */}
+          <div className="p-4">
+            <button className="w-full py-3 px-6 bg-blue-600 text-white font-medium rounded-lg transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+              {isAlreadyEnrolled ? "Already Enrolled" : "Enroll Now"}
+            </button>
+          </div>
 
-          <div className="pt-6">
-            <p className="md:text-xl text-lg font-medium text-gray-800">
+          {/* Course Features */}
+          <div className="p-4 border-t border-gray-100">
+            <h3 className="text-lg font-medium text-gray-800 sm:text-xl">
               What's in the course?
-            </p>
-            <ul className="ml-4 pt-2 text-sm md:text-default list-disc text-gray-500">
+            </h3>
+            <ul className="mt-3 space-y-2 text-sm text-gray-500 list-disc list-inside sm:text-base">
               <li>Lifetime access with free updates.</li>
-              <li>Step-by-step, hands-on projects gaidance.</li>
+              <li>Step-by-step, hands-on projects guidance.</li>
               <li>Downloadable resources and source code.</li>
               <li>Quizzes to test your knowledge.</li>
               <li>Certificate of completion.</li>
