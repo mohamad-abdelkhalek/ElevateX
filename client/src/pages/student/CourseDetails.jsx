@@ -180,7 +180,21 @@ const CourseDetails = () => {
         </div>
 
         {/* Right Column */}
-        <div>{/* Content goes here */}</div>
+        <div>
+          <img src={courseData.courseThumbnail} alt="Course Thumbnail" />
+          <div className="pt-5">
+            <div>
+              <img
+                className="w-3.5"
+                src={assets.time_left_clock_icon}
+                alt="Time left clock icon"
+              />
+              <p className="text-red-500">
+                <span className="font-medium">5 days</span> left at this price!
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   ) : (
