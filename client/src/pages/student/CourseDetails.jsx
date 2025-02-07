@@ -226,6 +226,29 @@ const CourseDetails = () => {
               {courseData.discount}% off
             </p>
           </div>
+
+          <div
+            className="flex items-center text-sm md:text-default gap-4 pt-2
+          md:pt-4 text-gray-500 px-4 mb-4"
+          >
+            <div className="flex items-center gap-1">
+              <img src={assets.star} alt="Star icon" />
+              <p>{calculateRating(courseData)}</p>
+            </div>
+            <div className="h-4 w-px bg-gray-500/40"></div>
+
+            <div className="flex items-center gap-1">
+              <img src={assets.time_clock_icon} alt="Clock icon" />
+              <p>{calculateCourseDuration(courseData)}</p>
+            </div>
+
+            <div className="h-4 w-px bg-gray-500/40"></div>
+
+            <div className="flex items-center gap-1">
+              <img src={assets.time_clock_icon} alt="Clock icon" />
+              <p>{calculateNoOfLectures(courseData)} lessons</p>
+            </div>
+          </div>
         </div>
       </div>
     </>
