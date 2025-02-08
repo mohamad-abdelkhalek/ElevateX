@@ -5,12 +5,14 @@ import Loading from "../../components/student/Loading";
 import { assets } from "../../assets/assets";
 import humanizeDuration from "humanize-duration";
 import Footer from "../../components/student/Footer";
+import YouTube from "react-youtube";
 
 const CourseDetails = () => {
   const { id } = useParams();
 
   const [openSections, setOpenSections] = useState({});
   const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false);
+  const [playerData, setPlayerData] = useState(null);
 
   const {
     allCourses,
@@ -144,7 +146,16 @@ const CourseDetails = () => {
                             <p>{lecture.lectureTitle}</p>
                             <div className="flex gap-2">
                               {lecture.isPreviewFree && (
-                                <p className="text-blue-500 cursor-pointer">
+                                <p
+                                  onClick={() =>
+                                    setPlayerData({
+                                      videoId: lecture.lectureUrl
+                                        .split("/")
+                                        .pop(),
+                                    })
+                                  }
+                                  className="text-blue-500 cursor-pointer"
+                                >
                                   Preview
                                 </p>
                               )}
@@ -185,11 +196,24 @@ const CourseDetails = () => {
         {/* Right Column */}
         <div className="w-full max-w-[424px] z-10 bg-white rounded-lg shadow-lg overflow-hidden mb-6">
           {/* Course Thumbnail */}
-          <img
-            src={courseData.courseThumbnail}
-            alt="Thumbnail of the course"
-            className="w-full h-auto object-cover"
-          />
+
+          {playerData ? (
+            <YouTube
+              videoId={playerData.videoId}
+              opts={{
+                playerVars: {
+                  autoplay: 1,
+                },
+              }}
+              iframeClassName="w-full aspect-video"
+            />
+          ) : (
+            <img
+              src={courseData.courseThumbnail}
+              alt="Thumbnail of the course"
+              className="w-full h-auto object-cover"
+            />
+          )}
 
           {/* Time Left Section */}
           <div className="p-4 flex items-center gap-2 border-b border-gray-100">
