@@ -1,11 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { useParams } from "react-router-dom";
+import { assets } from "../../assets/assets";
+import humanizeDuration from "humanize-duration";
 
 const Player = () => {
   const { enrolledCourses, calculateChapterTime } = useContext(AppContext);
   const { courseId } = useParams();
   const [courseData, setCourseData] = useState(null);
+  const [openSections, setOpenSections] = useState({});
+  const [playerData, setPlayerData] = useState(null);
 
   const getCourseData = () => {
     enrolledCourses.map((course) => {
@@ -13,6 +17,10 @@ const Player = () => {
         setCourseData(course);
       }
     });
+  };
+
+  const toggleSection = (index) => {
+    setOpenSections((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
   useEffect(() => {
@@ -72,25 +80,27 @@ const Player = () => {
                       {chapter.chapterContent.map((lecture, i) => (
                         <li key={i} className="flex items-start gap-2 py-1">
                           <img
-                            src={assets.play_icon}
+                            src={
+                              false ? assets.blue_tick_icon : assets.play_icon
+                            }
                             alt="Play icon"
                             className="w-4 h-4 mt-1"
                           />
                           <div className="flex items-center justify-between w-full text-gray-800 text-xs md:text-sm">
                             <p>{lecture.lectureTitle}</p>
                             <div className="flex gap-2">
-                              {lecture.isPreviewFree && (
+                              {lecture.lectureUrl && (
                                 <p
                                   onClick={() =>
                                     setPlayerData({
-                                      videoId: lecture.lectureUrl
-                                        .split("/")
-                                        .pop(),
+                                      ...lecture,
+                                      chapter: index + 1,
+                                      lecture: i + 1,
                                     })
                                   }
                                   className="text-blue-500 cursor-pointer"
                                 >
-                                  Preview
+                                  Watch
                                 </p>
                               )}
                               <p className="text-gray-600">
