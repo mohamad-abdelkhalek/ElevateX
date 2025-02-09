@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { assets } from "../../assets/assets";
 import humanizeDuration from "humanize-duration";
 import YouTube from "react-youtube";
+import Footer from "../../components/student/Footer";
 
 const Player = () => {
   const { enrolledCourses, calculateChapterTime } = useContext(AppContext);
@@ -151,6 +152,7 @@ const Player = () => {
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 };
