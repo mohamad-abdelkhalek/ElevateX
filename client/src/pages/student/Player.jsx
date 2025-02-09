@@ -126,19 +126,21 @@ const Player = () => {
         </div>
 
         {/* right column */}
-        <div>
+        <div className="md:mt-10">
           {playerData ? (
             <div>
               <YouTube
                 videoId={playerData.lectureUrl.split("/").pop()}
                 iframeClassName="w-full aspect-video"
               />
-              <div>
+              <div className="flex justify-between items-center mt-1">
                 <p>
                   {playerData.chapter}.{playerData.lecture}{" "}
                   {playerData.lectureTitle}
                 </p>
-                <button>Mark as completed</button>
+                <button className="text-blue-600">
+                  {false ? "Completed" : "Mark as Completed"}
+                </button>
               </div>
             </div>
           ) : (
