@@ -3,6 +3,7 @@ import { AppContext } from "../../context/AppContext";
 import { useParams } from "react-router-dom";
 import { assets } from "../../assets/assets";
 import humanizeDuration from "humanize-duration";
+import YouTube from "react-youtube";
 
 const Player = () => {
   const { enrolledCourses, calculateChapterTime } = useContext(AppContext);
@@ -25,7 +26,7 @@ const Player = () => {
 
   useEffect(() => {
     getCourseData();
-  }, []);
+  }, [enrolledCourses]);
 
   return (
     <>
@@ -125,7 +126,28 @@ const Player = () => {
         </div>
 
         {/* right column */}
-        <div></div>
+        <div>
+          {playerData ? (
+            <div>
+              <YouTube
+                videoId={playerData.lectureUrl.split("/").pop()}
+                iframeClassName="w-full aspect-video"
+              />
+              <div>
+                <p>
+                  {playerData.chapter}.{playerData.lecture}{" "}
+                  {playerData.lectureTitle}
+                </p>
+                <button>Mark as completed</button>
+              </div>
+            </div>
+          ) : (
+            <img
+              src={courseData ? courseData.courseThumbnail : ""}
+              alt="courseThumbnail"
+            />
+          )}
+        </div>
       </div>
     </>
   );
