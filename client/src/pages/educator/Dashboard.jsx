@@ -47,6 +47,56 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+
+        <div>
+          <h2 className="pb-4 text-lg font-medium">Latest Enrollments</h2>
+          <div className="flex flex-col items-center max-w-4xl w-full overflow-hidden rounded-md bg-white border border-gray-300 shadow">
+            <div className="overflow-x-auto w-full">
+              <table className="table-fixed md:table-auto w-full">
+                {/* Table Header */}
+                <thead className="bg-gray-100 text-gray-900 border-b border-gray-300 text-sm text-left">
+                  <tr>
+                    <th className="px-4 py-3 font-semibold text-center hidden sm:table-cell w-12">
+                      #
+                    </th>
+                    <th className="px-4 py-3 font-semibold w-1/3">
+                      Student Name
+                    </th>
+                    <th className="px-4 py-3 font-semibold w-1/2">
+                      Course Title
+                    </th>
+                  </tr>
+                </thead>
+                {/* Table Body */}
+                <tbody className="text-sm text-gray-600">
+                  {dashboardData.enrolledStudentsData.map((item, index) => (
+                    <tr
+                      key={index}
+                      className="border-b border-gray-300 hover:bg-gray-50 transition"
+                    >
+                      <td className="px-4 py-3 text-center hidden sm:table-cell">
+                        {index + 1}
+                      </td>
+                      <td className="px-4 py-3 flex items-center space-x-3 w-full">
+                        <img
+                          src={item.student.imageUrl}
+                          alt="Profile"
+                          className="w-9 h-9 rounded-full"
+                        />
+                        <span className="truncate w-full">
+                          {item.student.name}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 truncate w-full">
+                        {item.courseTitle}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   ) : (
