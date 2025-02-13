@@ -106,6 +106,79 @@ const AddCourse = () => {
             required
           />
         </div>
+
+        {/* Adding Chapters & Lectures */}
+        <div>
+          {chapters.map((chapter, chapterIndex) => (
+            <div key={chapterIndex} className="bg-white border rounded-lg mb-4">
+              <div className="flex justify-between items-center p-4 border-b">
+                <div className="flex items-center">
+                  <img
+                    src={assets.dropdown_icon}
+                    alt="Dropdown icon"
+                    width={14}
+                    className={`mr-2 cursor-pointer transition-all ${
+                      chapter.collapsed && "-rotate-90"
+                    }`}
+                  />
+                  <span className="font-semibold">
+                    {chapterIndex + 1} {chapter.chapterTitle}
+                  </span>
+                </div>
+                <span className="text-gray-500">
+                  {chapter.chapterContent.length} Lectures
+                </span>
+                <img
+                  src={assets.cross_icon}
+                  alt="Cross icon"
+                  className="cursor-pointer"
+                />
+              </div>
+              {!chapter.collapsed && (
+                <div className="p-4">
+                  {chapter.chapterContent.map((lecture, lectureIndex) => (
+                    <div
+                      key={lectureIndex}
+                      className="flex justify-between
+                    items-center mb-2"
+                    >
+                      <span>
+                        {lectureIndex + 1} {lecture.lectureTitle} -{" "}
+                        {lecture.lectureDuration}
+                        mins -{" "}
+                        <a
+                          href={lecture.lectureUrl}
+                          target="_blank"
+                          className="text-blue-500"
+                        >
+                          Link
+                        </a>{" "}
+                        - {lecture.isPreviewFree ? "Free Preview" : "Paid"}
+                      </span>
+                      <img
+                        src={assets.cross_icon}
+                        alt="Cross Icon"
+                        className="cursor-pointer"
+                      />
+                    </div>
+                  ))}
+                  <div
+                    className="inline-flex bg-gray-100 p-2 rounded
+                  cursor-pointer mt-2"
+                  >
+                    + Add Lecture
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+          <div
+            className="flex justify-center items-center bg-blue-100 p-2
+          rounded-lg cursor-pointer"
+          >
+            + Add Chapter
+          </div>
+        </div>
       </form>
     </div>
   );
