@@ -51,6 +51,22 @@ const AddCourse = () => {
     }
   };
 
+  const handleLecture = (action, chapterId, lectureIndex) => {
+    if (action === "add") {
+      setCurrentChapterId(chapterId);
+      setShowPopup(true);
+    } else if (action === "remove") {
+      setChapters(
+        chapters.map((chapter) => {
+          if (chapter.chapterId === chapterId) {
+            chapter.chapterContent.slice(lectureIndex, 1);
+          }
+          return chapter;
+        })
+      );
+    }
+  };
+
   useEffect(() => {
     // Initiate Quill only once
     if (!quillRef.current && editorRef.current) {
@@ -143,6 +159,7 @@ const AddCourse = () => {
               <div className="flex justify-between items-center p-4 border-b">
                 <div className="flex items-center">
                   <img
+                    onClick={() => handleChapter("toggle", chapter.chapterId)}
                     src={assets.dropdown_icon}
                     alt="Dropdown icon"
                     width={14}
@@ -161,6 +178,7 @@ const AddCourse = () => {
                   src={assets.cross_icon}
                   alt="Cross icon"
                   className="cursor-pointer"
+                  onClick={() => handleChapter("remove", chapter.chapterId)}
                 />
               </div>
               {!chapter.collapsed && (
@@ -188,12 +206,20 @@ const AddCourse = () => {
                         src={assets.cross_icon}
                         alt="Cross Icon"
                         className="cursor-pointer"
+                        onClick={() =>
+                          handleLecture(
+                            "remove",
+                            chapter.chapterId,
+                            lectureIndex
+                          )
+                        }
                       />
                     </div>
                   ))}
                   <div
                     className="inline-flex bg-gray-100 p-2 rounded
                   cursor-pointer mt-2"
+                    onClick={() => handleLecture("add", chapter.chapterId)}
                   >
                     + Add Lecture
                   </div>
