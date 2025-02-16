@@ -111,7 +111,7 @@ const AddCourse = () => {
       className="h-screen overflow-scroll flex flex-col items-start
     justify-between md:p-8 md:pb-0 p-4 pt-8 pb-0"
     >
-      <form onClick={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-1">
           <p>Course Title</p>
           <input
