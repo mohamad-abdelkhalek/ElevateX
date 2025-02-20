@@ -1,5 +1,17 @@
 import mongoose from "mongoose";
 
+const lectureSchema = new mongoose.Schema(
+  {
+    lectureId: { type: String, required: true },
+    lectureTitle: { type: String, required: true },
+    lectureDuration: { type: Number, required: true },
+    lectureUrl: { type: String, required: true },
+    isPreviewFree: { type: Boolean, required: true },
+    lectureOrder: { type: Number, required: true },
+  },
+  { _id: false }
+);
+
 const chapterSchema = new mongoose.Schema(
   {
     chapterId: { type: String, required: true },
