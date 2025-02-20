@@ -1,5 +1,15 @@
 import mongoose from "mongoose";
 
+const chapterSchema = new mongoose.Schema(
+  {
+    chapterId: { type: String, required: true },
+    chapterOrder: { type: Number, required: true },
+    chapterTitle: { type: String, required: true },
+    chapterContent: [lectureSchema],
+  },
+  { _id: false }
+);
+
 const courseSchema = new mongoose.Schema(
   {
     courseTitle: { type: String, required: true },
@@ -8,7 +18,7 @@ const courseSchema = new mongoose.Schema(
     coursePrice: { type: Number, required: true },
     isPublished: { type: Boolean, required: true },
     discount: { type: Number, required: true, min: 0, max: 100 },
-    courseContent: [],
+    courseContent: [chapterSchema],
     courseRatings: [
       {
         userId: { type: String },
