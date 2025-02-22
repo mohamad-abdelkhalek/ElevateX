@@ -63,7 +63,7 @@ export const getEducatorCourses = async (req, res) => {
 
 // Get Educator Dashboard Data
 // (Total Earning, Enrolled Students, No. of Courses)
-export const educatorDashboardData = async () => {
+export const educatorDashboardData = async (req, res) => {
   try {
     const educatorId = req.auth.userId;
 
@@ -111,6 +111,33 @@ export const educatorDashboardData = async () => {
         totalCourses,
       },
     });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Get enrolled students data with purchase data
+export const getEnrolledStudentsData = async (req, res) => {
+  try {
+    const educatorId = req.auth.userId;
+    // Find courses where the educatorId matches
+    const courses = await Course.find({ educatorId });
+    const courseIds = courses.map((course) => course._id);
+
+    const purchases = await Purchase.find({
+      courseId: { $in: courseIds },
+      status: "completed",
+    })
+      .populate("userId", "name imageUrl")
+      .populate("courseId", "courseTitle");
+
+    const enrolledStudents = purchases.map((purchase) => ({
+      student: purchase.userId,
+      courseTitle: purchase.courseId.courseTitle,
+      purchaseData: purchase.createdAt,
+    }));
+
+    res.json({ success: true, enrolledStudents });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
