@@ -1,6 +1,7 @@
-import { clerkClient } from "@clerk/express";
+import { clerkClient, User } from "@clerk/express";
 import Course from "../models/Course.js";
 import { v2 as cloudinary } from "cloudinary";
+import { Purchase } from "../models/Purchase.js";
 
 // Update role to educator
 export const updateRoleToEducator = async (req, res) => {
@@ -49,12 +50,67 @@ export const addCourse = async (req, res) => {
 // Get Educator Courses
 export const getEducatorCourses = async (req, res) => {
   try {
-    const educatorId = req.auth.userId; 
-    
+    const educatorId = req.auth.userId;
+
     // Find courses where the educatorId matches
     const courses = await Course.find({ educatorId });
 
     res.json({ success: true, courses });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// Get Educator Dashboard Data
+// (Total Earning, Enrolled Students, No. of Courses)
+export const educatorDashboardData = async () => {
+  try {
+    const educatorId = req.auth.userId;
+
+    // Find courses where the educatorId matches
+    const courses = await Course.find({ educatorId });
+
+    const totalCourses = courses.length;
+
+    const courseIds = courses.map((course) => course._id);
+
+    // Calculate total earnings from purchases
+    const purchases = await Purchase.find({
+      courseId: { $in: courseIds },
+      status: "completed",
+    });
+
+    const totalEarnings = purchases.reduce(
+      (sum, purchase) => sum + purchase.amount,
+      0
+    );
+
+    // Collect unique enrolled students IDs with their cpourse titles
+    const enrolledStudentsData = [];
+    for (const course of courses) {
+      const students = await User.find(
+        {
+          _id: { $in: course.enrolledStudents },
+        },
+        "name imageUrl"
+      );
+
+      students.array.forEach((students) => {
+        enrolledStudentsData.push({
+          courseTitle: course.courseTitle,
+          students,
+        });
+      });
+    }
+
+    res.json({
+      success: true,
+      dashboardData: {
+        totalEarnings,
+        enrolledStudentsData,
+        totalCourses,
+      },
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
